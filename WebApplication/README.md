@@ -4,7 +4,7 @@ En este workshop desplegarás una aplicación web simple que permite a los usuar
 
 La arquitectura de la aplicación usa [AWS Lambda][lambda], [Amazon API Gateway][api-gw], [Amazon S3][s3], [Amazon DynamoDB][dynamodb], [Amazon Cognito][cognito], and [AWS Amplify Console][amplify-console]. La consola de Amplify hospeda recursos web estáticos incluyendo HTML, CSS, JavaScript e imagenes, archivos que son cargados en el browser del usuario desde S3. El JavaScript ejecutado en el browser envía y recibe datos desde un backend público que consta de una API construida usando Lambda y API Gateway. Amazon Cognito provee las funciones de administración de usuarios y autenticación para asegurar el backend. Finalmente, DynamoDB provee la capa de persistencia de datos donde esta puede ser almacenada por la API's usando Lambda.
 
-### pre-requisites
+### Pre-requisitos
 
 :white_check_mark: Revisar las siguientes indicaciones en el [setup guide][setup],
 donde podrás configurar tu entorno de desarrollo AWS Cloud9 IDE
