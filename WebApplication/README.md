@@ -4,32 +4,31 @@ En este workshop desplegarás una aplicación web simple que permite a los usuar
 
 La arquitectura de la aplicación usa [AWS Lambda][lambda], [Amazon API Gateway][api-gw], [Amazon S3][s3], [Amazon DynamoDB][dynamodb], [Amazon Cognito][cognito], and [AWS Amplify Console][amplify-console]. La consola de Amplify hospeda recursos web estáticos incluyendo HTML, CSS, JavaScript e imagenes, archivos que son cargados en el browser del usuario desde S3. El JavaScript ejecutado en el browser envía y recibe datos desde un backend público que consta de una API construida usando Lambda y API Gateway. Amazon Cognito provee las funciones de administración de usuarios y autenticación para asegurar el backend. Finalmente, DynamoDB provee la capa de persistencia de datos donde esta puede ser almacenada por la API's usando Lambda.
 
+### pre-requisites
+
+:white_check_mark: Revisar las siguientes indicaciones en el [setup guide][setup],
+donde podrás configurar tu entorno de desarrollo AWS Cloud9 IDE
+
 Ver el diagrama abajo para una representación completa de la architectura
 
 ![Mis textos](images/wildrydes-complete-architecture.png)
 
-### Modules
+### Módulos
 
-This workshop is divided into four modules. Each module describes a scenario of
-what we're going to build and step-by-step directions to help you implement the
-architecture and verify your work.
+Este workshop esta divido en cuatro modulos, cada modulo describe un escenario de
+lo que vamos a construir con instrucciones paso a paso para ayudarte a implementar
+la arquitectura y verificar el trabajo.
+
 
 | Module | Description |
 | ---------------- | -------------------------------------------------------- |
-| [Static Web hosting][static-web-hosting] | Deploy the static website using AWS Amplify Console by first creating a git repository (in either CodeCommit or GitHub) and then pushing the site code. |
-| [User Management][user-management] | Configure user management for the website using Amazon Cognito. |
-| [Serverless Backend][serverless-backend] | Create an AWS Lambda function that will persist data to an Amazon DynamoDB table. |
-| [RESTful APIs][restful-apis] | Expose the Lambda function via an Amazon API Gateway as a RESTful API that the static site can call. |
+| [Static Web hosting][static-web-hosting] | Desplegar un sitio web estático usando la consola de Amplify creando primero un repositorio *git* (ya sea en CodeCommit o GitHub) y luego enviando el código fuente del sitio. |
+| [User Management][user-management] | Configurar la administración de usuarios para el sitio web usando Amazon Cognito. |
+| [Serverless Backend][serverless-backend] | Crear una funciona lambda que almacene los datos en una tabla Amazon DynamoDB. |
+| [RESTful APIs][restful-apis] | Exponer la función lambda via Amazon API Gateway como una API RESTful que pueda ser llamada por el sitio web usando Javascript. |
 
-:warning: These modules are intended to be executed linearly.
+:warning: Estos modulos deben ser executados de forma secuencial.
 
-After you have completed the workshop you can delete all of the resources that were created by following the [cleanup guide][cleanup].
-
-### Next
-
-:white_check_mark: Review and follow the directions in the [setup guide][setup],
-wherein you'll configure your AWS Cloud9 IDE and setup pre-requisites like an
-AWS Account.
 
 [wildrydes]: http://wildrydes.com/
 [unicorns]: http://www.wildrydes.com/unicorns.html
