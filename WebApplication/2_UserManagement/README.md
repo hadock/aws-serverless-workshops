@@ -1,4 +1,4 @@
-# Module 2: Autenticación y registro de usuarios usando Amazon Cognito User Pools
+# Módulo 2: Autenticación y registro de usuarios usando Amazon Cognito User Pools
 
 En este módulo crearás un **[Amazon Cognito][cognito] user pool** para administrar las cuentas de usuario. Desplegarás sensillas páginas que permitirán a tus usuarios registrarse, verificar sus correos y loguearse en vuestro sitio.
 
