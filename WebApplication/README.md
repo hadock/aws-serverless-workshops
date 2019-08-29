@@ -6,7 +6,7 @@ La arquitectura de la aplicación usa [AWS Lambda][lambda], [Amazon API Gateway]
 
 ### Pre-requisitos
 
-:white_check_mark: Revisar las siguientes indicaciones en el [setup guide][setup],
+:white_check_mark: Revisar las siguientes indicaciones en [la guia de configuracion de pre-requisitos][setup],
 donde podrás configurar tu entorno de desarrollo AWS Cloud9 IDE
 
 Ver el diagrama abajo para una representación completa de la architectura
