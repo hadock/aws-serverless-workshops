@@ -10,7 +10,7 @@ La arquitectura para este modulo esta bastante sencilla, todo tu contenido está
 
 ## Instrucciones para la implementación
 
-:heavy_exclamation_mark: Asegúrate de haber seguido la [setup guide][guía de configuración] antes de comenzar con el Workshop.
+:heavy_exclamation_mark: Asegúrate de haber seguido la [guía de configuración][setup] antes de comenzar con el Workshop.
 
 Cada una de las siguientes secciones entrega una descripción general de la implementacion e instrucciones paso a paso. La descripción general deberia proveer suficiente contexto para que puedas completar la implementación si es que ya estas familiarizado con la consola de administración de AWS o si es que quieres explorar en los servicios por tu cuenta sin seguir la guía.
 
