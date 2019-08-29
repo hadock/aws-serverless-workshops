@@ -1,6 +1,6 @@
 ## Setup
 
-### cuenta de AWS
+### Cuenta de AWS
 
 De manera de completar este workshop, necesitaras una cuenta de AWS y permisos para 
 crear recursos tales como AWS Identity and Access Management (IAM), Amazon Cognito, 
@@ -9,13 +9,13 @@ AWS Cloud9 en esa cuenta
 
 El código y las instrucciones en este workshop asumen que solo un participante
 estará usando una cuenta de AWS a la vez, si usted necesita compartir una cuenta 
-con otro participante, necesitara resolver el conflicto de nombre para ciertos
+con otro participante, necesitará resolver el conflicto de nombre para ciertos
 recursos. Una alternativa puede ser usando un sufijo en el nombre de los recursos
-o quizas usando distintas regiones, pero las instrucciones no proveen detalles
+o quizás usando distintas regiones, pero las instrucciones no proveen detalles
 sobre como cambiar lo necesario para hacerlo funcionar bajo esta modalidad.
 
 Preferentemente use una cuenta personal o cree una nueva cuenta para este workshop
-en vez de usar la cuenta de una organizacion para asegurarse de que tiene acceso 
+en vez de usar la cuenta de una organización para asegurarse de que tiene acceso 
 completo a los servicios necesarios para realizar la actividad.
 
 ### AWS Cloud9 IDE
@@ -91,7 +91,7 @@ un Amazon Resource Name (ARN), copia y pega esta informacion en el editor que es
 ### Next
 
 :white_check_mark: Ahora proceda con el primer módulo, [Static Web Hosting][static-web-hosting], 
-donde desplegarás un sitio web estatico usando la consola de AWS Amplify.
+donde desplegarás un sitio web estático usando la consola de AWS Amplify.
 
 [region-table]: https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/
 [static-web-hosting]: ../1_StaticWebHosting/
