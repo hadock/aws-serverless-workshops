@@ -1,14 +1,14 @@
-# Module 2: User Authentication and Registration with Amazon Cognito User Pools
+# Module 2: Autenticación y registro de usuarios usando Amazon Cognito User Pools
 
-In this module you'll create an [Amazon Cognito][cognito] user pool to manage your users' accounts. You'll deploy pages that enable customers to register as a new user, verify their email address, and sign into the site.
+En este módulo crearás un **[Amazon Cognito][cognito] user pool** para administrar las cuentas de usuario. Desplegarás sensillas páginas que permitirán a tus usuarios registrarse, verificar sus correos y loguearse en vuestro sitio.
 
-## Architecture Overview
+## Vista general de la arquitectura
 
-When users visit your website they will first register a new user account. For the purposes of this workshop we'll only require them to provide an email address and password to register. However, you can configure Amazon Cognito to require additional attributes in your own applications.
+Cuando los usuarios visiten tu sitio, ellos primero deberán registrar una cuenta de usuario. Para el proposito de este workshop solo les pediremos que provean un una dirección de correo electrónico válida y una contraseña. Sin embargo, puedes configurar **Amazon Cognito** para solicitar atributos adicionales en tus aplicaciones.
 
-After users submit their registration, Amazon Cognito will send a confirmation email with a verification code to the address they provided. To confirm their account, users will return to your site and enter their email address and the verification code they received. You can also confirm user accounts using the Amazon Cognito console if you want to use fake email addresses for testing.
+Luego que los usuarios envien sus registros, **Amazon Cognito** enviará un correo de confirmacion con un código de verificación a la direccion de correo electrónico inscrita. Para confirmar esta cuenta, los usuarios tendrán que retornar a tu sitio donde deberán proveer la dirección de correo utilizada para el registro y el código de verificación enviado a esta casilla. Si no quisieras usar una casilla de correo válida, siempre puedes confirmar manualmente la cuenta desde la **consola de Amazon Cognito** para efectos de pruebas.
 
-After users have a confirmed account (either using the email verification process or a manual confirmation through the console), they will be able to sign in. When users sign in, they enter their username (or email) and password. A JavaScript function then communicates with Amazon Cognito, authenticates using the Secure Remote Password protocol (SRP), and receives back a set of JSON Web Tokens (JWT). The JWTs contain claims about the identity of the user and will be used in the next module to authenticate against the RESTful API you build with Amazon API Gateway.
+Después que los usuarios han confirmado el registro de sus cuentas (ya sea con el código o manualmente desde la consola) Ya estarán listos para loguearse en tu sitio. Cuando los usuarios se loguean, ellos deben proporcionar el username o email y el password. Una funcion en **Javascript** se comunica finalmente con **Amazon Cognito** y autentica al cliente usando el protocolo **Secure Remote Password** o **(SRP)** lo que proporciona como respuesta un **JSON Wen Token (JWT)**. Los JWTs contienen información respecto a la identidad del usuario y seran usados en el siguiente módulo para autenticar las peticiones a una API RESTful construida con **Amazon API Gateway**.
 
 ![Authentication architecture](../images/authentication-architecture.png)
 
