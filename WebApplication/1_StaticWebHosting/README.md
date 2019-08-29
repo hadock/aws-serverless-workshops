@@ -1,82 +1,76 @@
-# Module 1: Static Web Hosting with AWS Amplify Console
+# Módulo 1: Publicando un sitio web estático con la consola de AWS Amplify
 
-In this module you'll configure AWS Amplify Console to host the static resources for your web application. In subsequent modules you'll add dynamic functionality to these pages using JavaScript to call remote RESTful APIs built with AWS Lambda and Amazon API Gateway.
+Em este módulo configurarás **AWS Amplify** en la consola para hospedar los recursos estaticos de tu aplicación web. En los siguientes módulos agregarás funcionalidades dinámicas a estas páginas usando **Javascript** para realizar llamadas una API RESTful construida con **AWS Lambda** y **Amazon API Gateway**
 
-## Architecture Overview
+## Vista general de la arquitectura
 
-The architecture for this module is very straightforward. All of your static web content including HTML, CSS, JavaScript, images and other files will be managed by AWS Amplify Console and served via Amazon CloudFront. Your end users will then access your site using the public website URL exposed by AWS Amplify Console. You don't need to run any web servers or use other services in order to make your site available.
+La arquitectura para este modulo esta bastante sencilla, todo tu contenido estático incluido el HTML, CSS, Javasript, Imagenes y otros archivos serán administrados por la consola de AWS Amplify y servidos via Amazon Cloudfront. Tus usuarios deberán acceder a tu sitio usando la URL publica entregada por AWS Amplify. No necesitas correr ni configurar ningun servidor ni usar otros servicios para disponibilizar tu sitio
 
 ![Static website architecture](../images/static-website-architecture.png)
 
-## Implementation Instructions
+## Instrucciones para la implementación
 
-:heavy_exclamation_mark: Ensure you've completed the [setup guide][setup] before beginning
-the workshop.
+:heavy_exclamation_mark: Asegúrate de haber seguido la [setup guide][guía de configuración] antes de comenzar con el Workshop.
 
-Each of the following sections provides an implementation overview and detailed, step-by-step instructions. The overview should provide enough context for you to complete the implementation if you're already familiar with the AWS Management Console or you want to explore the services yourself without following a walkthrough.
+Cada una de las siguientes secciones entrega una descripción general de la implementacion e instrucciones paso a paso. La descripción general deberia proveer suficiente contexto para que puedas completar la implementación si es que ya estas familiarizado con la consola de administración de AWS o si es que quieres explorar en los servicios por tu cuenta sin seguir la guía.
 
-### Region Selection
+### Selección de region
 
-This workshop step can be deployed in any AWS region that supports the following services:
+Este workshop puede ser desplegado en cualquier region de AWS que soporte los siguientes servicios:
 
 - AWS Amplify Console
 - AWS CodeCommit
 
-You can refer to the [AWS region table][region-services] in the AWS documentation to see which regions have the supported services. Among the supported regions you can choose are:
+Puede encontrar mas informacion en la [tabla de regiones de AWS][region-services] de la documentacion para ver que regiones soportan determinados servicios. Por lo pronto, las regiones que puedes elegir son:
 * North America: N. Virginia, Ohio, Oregon
 * Europe: Ireland, London, Frankfurt
 * Asia Pacific: Tokyo, Seoul, Singapore, Sydney, Mumbai
 
-Once you've chosen a region, you should deploy all of the resources for this workshop there. Make sure you select your region from the dropdown in the upper right corner of the AWS Console before getting started.
+Una vez hayas elegido la region, deberás desplegar todos los recursos de este workshop en ese lugar. asegúrate de haber seleccionado la región desde la lista desplegable unicada en la esquina superior derecha de la consola web de AWS antes de comenzar.
 
 ![Region selection screenshot](../images/region-selection.png)
 
-### Create the git repository
-You have two options for this first step which is to either use [AWS CodeCommit][commit] or [GitHub][github] to host your site's repository. The choice is yours. If you have a GitHub account feel free to use that. Otherwise [CodeCommit is included in the AWS Free Tier][codecommit-free]
-#### Using CodeCommit
-The AWS Cloud9 development environment comes with AWS managed temporary credentials that are associated with your IAM user. You use these credentials with the AWS CLI credential helper. Enable the credential helper by running the following two commands in the terminal of your Cloud9 environment.
+### Crear una repositorio git
+Tienes dos opciones para esta primera etapa, las cuales son usar [AWS CodeCommit][commit] o [GitHub][github] para almacenar el repositorio del sitio. Para el propósito de este curso, nos limitaremos al uso de [AWS CodeCommit][commit], por otro lado, [CodeCommit esta incluido en la capa gratuita de AWS][codecommit-free]
+
+#### Usando CodeCommit
+El entorno de desarrollo AWS Cloud9 viene con credenciales temporales administradas por AWS que pueden ser asociadas con tu usuario IAM.
+Puedes usar estas credenciales con el manejador de credenciales del AWS CLI. Habilita esta caracteristística ejecutando los siguientes dos comandos en la consola de Cloud9.
 ```bash
 git config --global credential.helper '!aws codecommit credential-helper $@'
 git config --global credential.UseHttpPath true
 ```
 
-Next you need to create the repository and clone it to your Cloud9 environment:
-1. Open the [AWS CodeCommit console][codecommit-console]
-1. Select **Create Repository**
-1. Set the *Repository name** to "wildrydes-site"
-1. Select **Create**
-1. From the *Clone URL* drop down, select *Clone HTTPS*
+Lo siguiente que necesitas hacer, es crear tu repositorio y clonarlo en tu ambiente Cloud9:
+1. Abre la [consola de AWS CodeCommit][codecommit-console]
+1. selecciona **Create Repository**
+1. En el nombre del repositorio *Repository name** escribe "mywebapp-site"
+1. Presiona **Create**
+1. Desde el menu desplegable *Clone URL*, selecciona *Clone HTTPS*
 
-Now from your Cloud9 development environment:
-1. From a terminal window run `git clone` and the HTTPS URL of the respository:
+Ahora en tu entorno de desarrollo Cloud9:
+1. Desde la ventana con la terminal ejecuta `git clone` mas la URL HTTPS del repositorio:
     ```
-    ec2-user:~/environment $ git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/wildrydes-site
-    Cloning into 'wildrydes-site'...
+    ec2-user:~/environment $ git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/mywebapp-site
+    Cloning into 'mywebapp-site'...
     warning: You appear to have cloned an empty repository.
     ec2-user:~/environment $ 
     ```
 
-#### Additional Github Step (This step is only required if you're using Github instead of Codecommit)
-**:white_check_mark: Step-by-step directions**
-1. Follow the instructions on [GitHub][github] to [Create a repository][create-repo]. NOTE: You should not create a first commit, just create the repository.
-1. Clone the repository locally using your GitHub credentials
-    1. If you do not have credentially locally, or want to use Cloud9 for today's lab, follow these steps to [Generating a new SSH key and adding it to the ssh-agent][github-new-sshkey]
-    1. [Clone the repository][github-clone]
+#### Poblar el repositorio con los archivos del sitio para este workshop
+Una vez que tu repositorio ha sido creado y clonado localmente, necesitaras ponerle los archivos para tu sitio web y luego sincronizarlos al repositorio remoto. 
 
-#### Populate the git repository
-Once your git repository is created and cloned locally, you'll need to pull in the files for your website and sync them up to the repository. 
-
-**:white_check_mark: Step-by-step directions**
-From your Cloud9 development environment(or local environment)
-1. Change directory into your repository:
+**:white_check_mark: Indicaciones paso a paso**
+Desde tu ambiente de desarrollo Cloud9 (o ambiente local)
+1. Entra al directorio de tu repositorio recientemente clonado:
     ```
-    cd wildrydes-site/
+    cd mywebapp-site/
     ```
-1. Copy the files from S3:
+1. Copia los archivos de este workshop que tenemos disponibles en un bucket S3:
     ```
     aws s3 cp s3://wildrydes-us-east-1/WebApplication/1_StaticWebHosting/website ./ --recursive
     ```
-1. Commit the files to your git service (you might need to enter an email and user name for the commit):
+1. Commitea los archivos a su servicio git (Probablemente necesites introducir un correo y nombre para el commit):
     ```
     $ git add .
     $ git config --global user.email "<EMAIL ADDRESS>"
@@ -84,8 +78,8 @@ From your Cloud9 development environment(or local environment)
     $ git commit -m "initial checkin of website code"
     $ git push
     
-    Username for 'https://git-codecommit.us-east-1.amazonaws.com': wildrydes-codecommit-at-xxxxxxxxx
-    Password for 'https://wildrydes-codecommit-at-xxxxxxxxx@git-codecommit.us-east-1.amazonaws.com': 
+    Username for 'https://git-codecommit.us-east-1.amazonaws.com': mywebapp-codecommit-at-xxxxxxxxx
+    Password for 'https://mywebapp-codecommit-at-xxxxxxxxx@git-codecommit.us-east-1.amazonaws.com': 
     Counting objects: 95, done.
     Compressing objects: 100% (94/94), done.
     Writing objects: 100% (95/95), 9.44 MiB | 14.87 MiB/s, done.
