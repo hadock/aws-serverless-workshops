@@ -8,11 +8,10 @@ var MiAplicacion = window.MiAplicacion || {};
         if(authToken){
             console.log('jwt', authToken);
         }else{
-            alert("No hay sesion activa o no se han completado los modulos anteriores.")
-            throw {"message": "No hay token activo"};
+            throw {"message": "No hay sesion activa o no se han completado los modulos anteriores."};
         }
     }catch(e){
-        alert(e);
+        alert(JSON.stringify(e));
         console.log('token-error', JSON.stringify(e, null, 2));
         return;
     }
