@@ -1,9 +1,9 @@
-/*global WildRydes _config AmazonCognitoIdentity AWSCognito*/
+/*global MiAplicacion _config AmazonCognitoIdentity AWSCognito*/
 
-var WildRydes = window.WildRydes || {};
+var MiAplicacion = window.MiAplicacion || {};
 
-(function scopeWrapper($) {
-    var signinUrl = 'signin.html';
+$(document).ready(() => {
+    var signinUrl = '/signin.html';
 
     var poolData = {
         UserPoolId: _config.cognito.userPoolId,
@@ -15,7 +15,7 @@ var WildRydes = window.WildRydes || {};
     if (!(_config.cognito.userPoolId &&
           _config.cognito.userPoolClientId &&
           _config.cognito.region)) {
-        $('#noCognitoMessage').show();
+        alert("Este modulo no ha sido configurado completamente para permitir la autenticacion");
         return;
     }
 
@@ -25,11 +25,11 @@ var WildRydes = window.WildRydes || {};
         AWSCognito.config.region = _config.cognito.region;
     }
 
-    WildRydes.signOut = function signOut() {
+    MiAplicacion.signOut = function signOut() {
         userPool.getCurrentUser().signOut();
     };
 
-    WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
+    MiAplicacion.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
         var cognitoUser = userPool.getCurrentUser();
 
         if (cognitoUser) {
@@ -59,7 +59,7 @@ var WildRydes = window.WildRydes || {};
         };
         var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
 
-        userPool.signUp(email, password, [attributeEmail], null,
+        userPool.signUp(toUsername(email), password, [attributeEmail], null,
             function signUpCallback(err, result) {
                 if (!err) {
                     onSuccess(result);
@@ -72,7 +72,7 @@ var WildRydes = window.WildRydes || {};
 
     function signin(email, password, onSuccess, onFailure) {
         var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
-            Username: email,
+            Username: toUsername(email),
             Password: password
         });
 
@@ -95,9 +95,13 @@ var WildRydes = window.WildRydes || {};
 
     function createCognitoUser(email) {
         return new AmazonCognitoIdentity.CognitoUser({
-            Username: email,
+            Username: toUsername(email),
             Pool: userPool
         });
+    }
+
+    function toUsername(email) {
+        return email.replace('@', '-at-');
     }
 
     /*
@@ -166,4 +170,4 @@ var WildRydes = window.WildRydes || {};
             }
         );
     }
-}(jQuery));
+});
